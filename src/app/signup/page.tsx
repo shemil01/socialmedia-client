@@ -1,19 +1,39 @@
+'use client'
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
+import { useState } from "react";
+import { signup } from "@/services/auth";
+import Link from "next/link";
 
 export default function Signup() {
+    const [username,setUserName] = useState<string>('')
+    const [email,setEmail] = useState<string>('')
+    const [password,setPassword] = useState<string>('')
+
+    const handleSignup = async(e:React.FormEvent) => {
+        e.preventDefault()
+        try {
+            const data = await signup({username,email,password})
+
+            console.log("data:",data)
+        } catch (err:any) {
+            console.log(err)
+        }
+    }
   return (
     <div className="flex min-h-screen justify-center items-center bg-gray-50 overflow-hidden">
       {/* Left Section - Form */}
       <div className="flex flex-col justify-center items-center w-full max-w-[504px] p-8 sm:p-12 lg:w-1/2">
         <h2 className="text-2xl font-bold mb-6">Get Started Now</h2>
-        <form className="w-full space-y-4">
+        <form onSubmit={handleSignup} className="w-full space-y-4">
           <div>
             <label className="block text-sm font-medium">Name</label>
             <input
               type="text"
-              placeholder="Your name"
+              value={username}
+              onChange={(e)=>setUserName(e.target.value)}
+              placeholder="Your username"
               className="mt-1 p-2.5 w-full border rounded-md focus:outline-none focus:ring focus:ring-green-500"
             />
           </div>
@@ -21,7 +41,9 @@ export default function Signup() {
             <label className="block text-sm font-medium">Email address</label>
             <input
               type="email"
-              placeholder="name@company.com"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
+              placeholder="username@company.com"
               className="mt-1 p-2.5 w-full border rounded-md focus:outline-none focus:ring focus:ring-green-500"
             />
           </div>
@@ -29,6 +51,8 @@ export default function Signup() {
             <label className="block text-sm font-medium">Password</label>
             <input
               type="password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               placeholder="••••••••"
               className="mt-1 p-2.5 w-full border rounded-md focus:outline-none focus:ring focus:ring-green-500"
             />
@@ -56,16 +80,16 @@ export default function Signup() {
             <span className="text-sm font-medium">Sign up with Google</span>
           </button>
           <button className="border border-gray-500 rounded-md flex items-center px-4 py-2 space-x-2">
-            <FaApple className="text-xl" />
+            <FaApple  />
             <span className="text-sm font-medium">Sign up with Apple</span>
           </button>
         </div>
 
         <div className="mt-4 text-sm">
           Have an account?{" "}
-          <a href="#" className="text-green-600 hover:underline">
+          <Link href={'/'} className="text-green-600 hover:underline">
             Sign in
-          </a>
+          </Link>
         </div>
       </div>
 
