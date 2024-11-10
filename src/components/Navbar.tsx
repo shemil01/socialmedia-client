@@ -5,7 +5,14 @@ import { IoMdNotifications } from "react-icons/io";
 import { IoChatboxEllipses } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 
-const Navbar = () => {
+
+interface NavbarProps {
+  onProfileClick: () => void;
+  onNotificationClick: () => void;
+  onMessageClick: () => void;
+}
+const Navbar :React.FC<NavbarProps> = ({onMessageClick,onNotificationClick,onProfileClick}) => {
+  
   return (
     <div>
       <div className="flex justify-between pr-5 pl-5 text-3xl mt-5 items-center">
@@ -25,9 +32,9 @@ const Navbar = () => {
           </div> */}
         </div>
         <div className="flex items-center md:space-x-20">
-          <IoMdNotifications />
-          <IoChatboxEllipses />
-          <MdAccountCircle />
+          <IoMdNotifications onClick={onNotificationClick} />
+          <IoChatboxEllipses onClick={onMessageClick} />
+          <MdAccountCircle onClick={onProfileClick} />
         </div>
       </div>
     </div>

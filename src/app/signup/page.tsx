@@ -5,17 +5,19 @@ import { FaApple } from "react-icons/fa";
 import { useState } from "react";
 import { signup } from "@/services/auth";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Signup() {
     const [username,setUserName] = useState<string>('')
     const [email,setEmail] = useState<string>('')
     const [password,setPassword] = useState<string>('')
+    const router = useRouter();
 
     const handleSignup = async(e:React.FormEvent) => {
         e.preventDefault()
         try {
             const data = await signup({username,email,password})
-
+            router.push("/home");
             console.log("data:",data)
         } catch (err:any) {
             console.log(err)
