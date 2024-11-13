@@ -11,7 +11,7 @@ import Link from "next/link";
 export default function Signin() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -21,7 +21,7 @@ export default function Signin() {
       console.log("Login successful:", data);
       router.push("/home");
     } catch (err: any) {
-      setError(err.message || "Login failed");
+     console.log(err)
     }
   };
 

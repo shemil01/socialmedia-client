@@ -9,19 +9,17 @@ import { MdAccountCircle } from "react-icons/md";
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { userProfile: profile, loading } = useSelector(
+  const { userProfile: profile, userPosts: posts, loading } = useSelector(
     (state: RootState) => state.user
   );
 
 
-useEffect(() => {
+
+  useEffect(() => {
     dispatch(fetchProfile())
-      .unwrap() // This helps to handle asynchronous results if needed
-      .then((profileData) => {
-        console.log("Fetched profile data:", profileData); // Log data here
-      })
-      .catch((error) => console.error("Failed to fetch profile:", error));
+    
   }, [dispatch]);
+
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -42,7 +40,17 @@ useEffect(() => {
 
     {/* Optional actions or info section */}
     <div className="mt-5">
-<p>posts</p>
+<p>{posts?.length}.posts</p>
+
+<div className="pt-10">
+        {posts?.map((post) => (
+          <div  key={post.id} className="flex space-x-1 space-y-1">
+            <img src={post.postImage} className="w-24 h-20" alt="" />
+            {/* <p>{post.content}</p> */}
+        
+          </div >
+        ))}
+      </div>
     </div>
   </div>
   );
