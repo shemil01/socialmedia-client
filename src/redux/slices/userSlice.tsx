@@ -57,7 +57,7 @@ export const editUserProfile = createAsyncThunk(
   export const fetchUserById = createAsyncThunk(
     'userProfile/fetchUserById',
     async (userId: string) => {
-      const response = await api.get(`/user/profile/${userId}`);
+      const response = await api.get(`/users/profile/${userId}`);
       return response.data.userProfile as UserProfile;
     }
   );
